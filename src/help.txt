@@ -1,0 +1,14 @@
+Comandos Disponibles:
+---------------------
+i - inicializarJuego (alias: i)
+ii - inicializarInverso (alias: ii)
+ia - iniciarArbol (alias: ia)
+iai - iniciarArbolInv (alias: iai)
+pp - puntajePalabra (alias: pp)
+pt - pasarTurno (alias: pt)
+ppr - palabraPrefijo (alias: ppr)
+psu - palabraSufijo (alias: psu)
+ppa - posiblePalabra (alias: ppa)
+gp - grafoPalabra (alias: gp)
+a - ayuda (alias: a)
+s - salir (alias: s)

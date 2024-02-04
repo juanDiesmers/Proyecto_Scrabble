@@ -88,7 +88,7 @@ int main()
             case 'a':
                 if (comando == "ayuda" || comando == "a") {
                     limpiarPantalla();
-                    cout << "este es el comando ayuda" << endl;
+                    mostrarAyuda();
                     cout << "saliendo del comando ayuda" << endl;
                 }
                 break;
