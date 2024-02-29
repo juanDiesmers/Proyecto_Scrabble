@@ -18,6 +18,6 @@ void inicializarJuego(const std::string& nombreArchivo);
 extern bool diccionarioInicializado;
 void inicializarInverso(const std::string& nombreArchivo);
 extern bool diccionarioInversoInicializado;
-int calcularPuntajePalabra(const std::string& palabra);
+void  puntajePalabra(const std::string& palabra);
 
 #endif // ASIGNACION_H

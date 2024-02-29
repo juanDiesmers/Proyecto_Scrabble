@@ -130,7 +130,6 @@ int calcularPuntajePalabra(const std::string& palabra) {
 void puntajePalabra(const std::string& palabra) {
     const std::unordered_set<std::string>& diccionario = obtenerDiccionario();
     const std::unordered_set<std::string>& diccionarioInverso = obtenerDiccionarioInverso();
-
     // verificar si la palabra existe en el diccionario
     if (diccionario.find(palabra) != diccionario.end() || diccionarioInverso.find(palabra) != diccionarioInverso.end()) {
         // Verificar si la palabra contiene solo letras válidas
@@ -141,12 +140,6 @@ void puntajePalabra(const std::string& palabra) {
                 break;
             }
         }
-
-        std::cout<<"Diccionario Normal"<<std::endl;
-        imprimirDiccionario(diccionario);
-        std::cout<<"Diccionario Inverso"<<std::endl;
-        imprimirDiccionario(diccionarioInverso);
-
         if (palabraValida) {
             int puntaje = calcularPuntajePalabra(palabra);
             if (puntaje != -1) {
@@ -165,4 +158,3 @@ void puntajePalabra(const std::string& palabra) {
         return;
     }
 }
-
