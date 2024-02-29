@@ -122,7 +122,7 @@ int main()
             default:
             
                 limpiarPantalla();
-                cout << "Comando invlaido. Para ver la lista de comandos disponibles, "
+                cout << "Comando invalido. Para ver la lista de comandos disponibles, "
                         "ingrese 'a' o ''ayuda'." << endl;
                 break;
         }
