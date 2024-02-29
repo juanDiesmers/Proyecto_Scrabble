@@ -1,5 +1,11 @@
 #include "scrable.h"
 #include <iostream>
+#include <string>
+#include "primeraEntrega/asignacion.h"
+
+/* Comando de compilacion
+    g++ -std=c++11 main.cpp scrable.cxx primeraEntrega/asignacion.cxx -o scrable
+*/
 
 using namespace std;
 
@@ -9,6 +15,8 @@ int main()
     int turno_actual = 0;
 
     string comando;
+    string nombreArchivo;
+    string palabra;
 
     pantallaPrincipal();
 
@@ -24,12 +32,17 @@ int main()
                     limpiarPantalla();
                     cout << "este es el comando inicializarJuego " << endl;
                     cout << "Comando en progreso..." << endl;
+                    cout << "Ingrese el nombre del archivo: ";
+                    cin >> nombreArchivo;
+                    inicializarJuego(nombreArchivo);
                     cout << "saliendo del comando inicializarJuego" << endl;
-
                 } else if (comando == "inicializarInverso" || comando == "ii") {
                     limpiarPantalla();
                     cout << "este es el comando inicializarInverso" << endl;
                     cout << "Comando en progreso..." << endl;
+                    cout << "Ingrese el nombre del archivo: ";
+                    cin >> nombreArchivo;
+                    inicializarInverso(nombreArchivo);
                     cout << "saliendo del comando inicializarInverso" << endl;
 
                 } else if (comando == "inicirArbol" || comando == "ia") {
@@ -50,15 +63,27 @@ int main()
                     limpiarPantalla();
                     cout << "este es el comando puntajePalabra" << endl;
                     cout << "Comando en progreso..." << endl;
+                    cout << "Ingrese la palabra para calcular su puntaje: ";
+                    cin >> palabra;
+
+                    // verificar si la palabra es valida y obtener su puntaje
+                    int puntaje = calcularPuntajePalabra(palabra);
+                    if(puntaje == -1){
+                        cout << "(Palabra no existe) La palabra no existe en el diccionario." << endl;
+                    } else if (puntaje == -2){
+                        cout << "(Letra invalidas) La palabra contiene letras inválidas." << endl;
+                    } else {
+                        cout << "(Resultado exitoso) La palabra tiene un puntaje de " << puntaje << "." << endl;
+                    }
                     cout << "saliendo del comando puntajePalabra" << endl;
 
-                } else if (comando == "pasarTurno" || comando == "pt") {
+                } /*else if (comando == "pasarTurno" || comando == "pt") {
                     limpiarPantalla();
                     cout << "este es el comando pasarturno" << endl;
                     cout << "Comando en progreso..." << endl;
                     cout << "saliendo del comando pasarturno" << endl;
 
-                } else if (comando == "palabraPrefijo" || comando == "ppr") {
+                } else */if (comando == "palabraPrefijo" || comando == "ppr") {
                     limpiarPantalla();
                     cout << "este es el comando palabraprefijo" << endl;
                     cout << "Comando en progreso..." << endl;
