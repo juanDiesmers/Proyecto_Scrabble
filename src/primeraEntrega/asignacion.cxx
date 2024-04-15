@@ -68,39 +68,39 @@ void inicializarJuego(const std::string& nombreArchivo) {
     diccionarioInicializado = true;
 }
 
-void inicializarInverso(const std::string& nombreArchivo) {    
-        if (diccionarioInversoInicializado) {
-            std::cout << "(Diccionario inverso ya inicializado) El diccionario inverso ya ha sido inicializado." << std::endl;
-            return;
-        }
-        std::ifstream archivo(nombreArchivo);
-        if (!archivo) {
-            std::cerr << "(Archivo no existe) EL archivo " << nombreArchivo << " no Existe o no puede ser leido" << std::endl;
-            return;
-        }
-        std::string palabra;   
-        while (archivo >> palabra) { 
-            // Verificar si la palabra es válida
-            bool palabraValida = true;
-            for (char c : palabra) {
-                if (!std::isalpha(c)) {
-                    palabraValida = false;
-                    break;
-                }
-            }   
-            // Almacenar la palabra si es válida
-            if (palabraValida) {
-                std::string palabraInversa(palabra.rbegin(), palabra.rend()); // invertir la palabra
-                palabrasValidasInverso.insert(palabra);
-            }
-        }    
-        if (palabrasValidasInverso.empty()) {
-            std::cout << "(Diccionario inverso ya inicializado) El diccionario inverso ya ha sido inicializado." << std::endl;
-        } else {
-            std::cout << "(Resultado exitoso) El diccionario inverso se ha inicializado correctamente." << std::endl;
-        }     
-        diccionarioInversoInicializado = true;
+void inicializarInverso(const std::string& nombreArchivo) {
+    if (diccionarioInversoInicializado) {
+        std::cout << "(Diccionario inverso ya inicializado) El diccionario inverso ya ha sido inicializado." << std::endl;
+        return;
     }
+    std::ifstream archivo(nombreArchivo);
+    if (!archivo) {
+        std::cerr << "(Archivo no existe) EL archivo " << nombreArchivo << " no Existe o no puede ser leido" << std::endl;
+        return;
+    }
+    std::string palabra;
+    while (archivo >> palabra) {
+        // Verificar si la palabra es válida
+        bool palabraValida = true;
+        for (char c : palabra) {
+            if (!std::isalpha(c)) {
+                palabraValida = false;
+                break;
+            }
+        }
+        // Almacenar la palabra y su inversa si es válida
+        if (palabraValida) {
+            std::string palabraInversa(palabra.rbegin(), palabra.rend()); // invertir la palabra
+            palabrasValidasInverso.insert(palabraInversa);
+        }
+    }
+    if (palabrasValidasInverso.empty()) {
+        std::cout << "(Diccionario inverso ya inicializado) El diccionario inverso ya ha sido inicializado." << std::endl;
+    } else {
+        std::cout << "(Resultado exitoso) El diccionario inverso se ha inicializado correctamente." << std::endl;
+    }
+    diccionarioInversoInicializado = true;
+}
     
 int calcularPuntajePalabra(const std::string& palabra) {
     //Tabla de puntajes por letra
