@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <unordered_set>
 
 const int MAX_JUGADORES = 4;
 
