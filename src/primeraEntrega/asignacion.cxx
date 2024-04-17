@@ -3,14 +3,11 @@
 #include <fstream>
 #include <string>
 #include <cctype>
-#include "../scrable.h"
 #include <vector>
 #include <algorithm>
 #include <utility>
 
-/*
-    englishWords-1.txt
-*/
+
 
 bool diccionarioInicializado = false;
 std::vector<std::string> palabrasValidas;
