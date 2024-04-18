@@ -106,14 +106,20 @@ int main()
                         if (trie.wordsWithPrefix(prefijo, palabrasConPrefijo) && !palabrasConPrefijo.empty()) {
                             cout << "Resultado exitoso: Las palabras que comienzan con '" << prefijo << "' son:" << endl;
                             for (const auto& palabra : palabrasConPrefijo) {
-                                cout << palabra << endl;
+                                int puntaje = calcularPuntajePalabra(palabra);
+                                if (puntaje != -1) {
+                                    cout << palabra << " (Longitud: " << palabra.length() << ", Puntaje: " << puntaje << ")" << endl;
+                                } else {
+                                    cout << palabra << " (Longitud: " << palabra.length() << ", Puntaje: Inválido)" << endl;
+                                }
                             }
                         } else {
                             cout << "Fallido: No existen palabras con el prefijo '" << prefijo << "'." << endl;
                         }
                     }
                     cout << "Saliendo del comando palabraPrefijo" << endl;
-                }  else if (comando == "palabraSufijo" || comando == "psu") {
+                }
+                else if (comando == "palabraSufijo" || comando == "psu") {
                     limpiarPantalla();
                     cout << "Este es el comando palabraSufijo" << endl;
 
@@ -124,14 +130,19 @@ int main()
                         cout << "Ingrese el sufijo a buscar: ";
                         string sufijo;
                         cin >> sufijo;
-                        std::reverse(sufijo.begin(), sufijo.end());
 
+                        std::reverse(sufijo.begin(), sufijo.end());
                         vector<string> palabrasConSufijo;
                         if (reverseTrie.wordsWithPrefix(sufijo, palabrasConSufijo) && !palabrasConSufijo.empty()) {
                             cout << "Resultado exitoso: Las palabras que terminan con '" << sufijo << "' son:" << endl;
                             for (auto& palabraInvertida : palabrasConSufijo) {
                                 std::reverse(palabraInvertida.begin(), palabraInvertida.end());
-                                cout << palabraInvertida << endl;
+                                int puntaje = calcularPuntajePalabra(palabraInvertida);
+                                if (puntaje != -1) {
+                                    cout << palabraInvertida << " (Longitud: " << palabraInvertida.length() << ", Puntaje: " << puntaje << ")" << endl;
+                                } else {
+                                    cout << palabraInvertida << " (Longitud: " << palabraInvertida.length() << ", Puntaje: Inválido)" << endl;
+                                }
                             }
                         } else {
                             cout << "Fallido: No existen palabras con el sufijo '" << sufijo << "'." << endl;
