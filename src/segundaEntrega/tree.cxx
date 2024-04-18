@@ -22,8 +22,7 @@ TrieNode::~TrieNode() {
 }
 
 // Constructor de Trie
-Trie::Trie() {
-    root = new TrieNode();
+Trie::Trie() : root(new TrieNode()), initialized(false) {
 }
 
 // Destructor de Trie
@@ -43,8 +42,8 @@ void Trie::clear(TrieNode* node) {
 void Trie::insert(const std::string& word) {
     TrieNode* currentNode = root;
     for (char ch : word) {
-        if (!isalpha(ch)) continue;
-        int index = tolower(ch) - 'a';
+        if (!std::isalpha(ch)) continue;
+        int index = std::tolower(ch) - 'a';
         if (currentNode->children[index] == nullptr) {
             currentNode->children[index] = new TrieNode();
         }
@@ -56,7 +55,7 @@ void Trie::insert(const std::string& word) {
 bool Trie::search(const std::string& word) const {
     TrieNode* currentNode = root;
     for (char ch : word) {
-        int index = tolower(ch) - 'a';
+        int index = std::tolower(ch) - 'a';
         if (currentNode->children[index] == nullptr) {
             return false;
         }
@@ -65,18 +64,17 @@ bool Trie::search(const std::string& word) const {
     return currentNode != nullptr && currentNode->isEndOfWord;
 }
 
-std::vector<std::string> Trie::wordsWithPrefix(const std::string& prefix) const {
-    std::vector<std::string> results;
+bool Trie::wordsWithPrefix(const std::string& prefix, std::vector<std::string>& results) const {
     TrieNode* currentNode = root;
     for (char ch : prefix) {
-        int index = tolower(ch) - 'a';
+        int index = std::tolower(ch) - 'a';
         if (currentNode->children[index] == nullptr) {
-            return results;
+            return false;
         }
         currentNode = currentNode->children[index];
     }
     collectAllWords(currentNode, prefix, results);
-    return results;
+    return !results.empty();
 }
 
 void Trie::collectAllWords(TrieNode* node, const std::string& currentWord, std::vector<std::string>& results) const {
@@ -91,6 +89,10 @@ void Trie::collectAllWords(TrieNode* node, const std::string& currentWord, std::
 }
 
 void Trie::initializeFromDictionaryFile(const std::string& filePath) {
+    if (initialized) {
+        std::cout << "(Árbol ya inicializado) El árbol del diccionario ya ha sido inicializado." << std::endl;
+        return;
+    }
     std::ifstream file(filePath);
     if (!file.is_open()) {
         std::cout << "(Archivo no existe) El archivo " << filePath << " no existe o no puede ser leído." << std::endl;
@@ -103,6 +105,7 @@ void Trie::initializeFromDictionaryFile(const std::string& filePath) {
             insert(word);
         }
     }
+    initialized = true;
     std::cout << "(Resultado exitoso) El árbol del diccionario se ha inicializado correctamente." << std::endl;
 }
 

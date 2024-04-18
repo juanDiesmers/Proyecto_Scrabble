@@ -7,7 +7,7 @@
 
 
 /* Comando de compilacion
-    g++ -std=c++11 main.cpp scrable.cxx primeraEntrega/asignacion.cxx segundaEntrega/trie.cxx -o scrable
+    g++ -std=c++11 main.cpp scrable.cxx primeraEntrega/asignacion.cxx segundaEntrega/tree.cxx -o scrable
 */
 /*
     englishWords-1.txt
@@ -54,7 +54,7 @@ int main()
                     inicializarInverso(nombreArchivo);
                     cout << "saliendo del comando inicializarInverso" << endl;
 
-                } else if (comando == "inicirArbol" || comando == "ia") {
+                } else if (comando == "iniciarArbol" || comando == "ia") {
                     limpiarPantalla();
                     cout << "este es el comando iniciarArbol" << endl;
                     cout << "Comando en progreso..." << endl;
@@ -92,42 +92,52 @@ int main()
 
                 } else if (comando == "palabraPrefijo" || comando == "ppr") {
                     limpiarPantalla();
-                    cout << "este es el comando palabraprefijo" << endl;
-                    cout << "Comando en progreso..." << endl;
+                    cout << "Este es el comando palabraPrefijo" << endl;
 
-                    cout << "Ingrese el prefijo a buscar: ";
-                    string prefijo;
-                    cin >> prefijo;
+                    if (!trie.isInitialized()) {
+                        cout << "Error: El árbol del diccionario no está inicializado." << endl;
+                    } else {
+                        cout << "Comando en progreso..." << endl;
+                        cout << "Ingrese el prefijo a buscar: ";
+                        string prefijo;
+                        cin >> prefijo;
 
-                    vector<string> palabrasConPrefijo = trie.wordsWithPrefix(prefijo);
-
-                    // Mostrar las palabras con el prefijo ingresado
-                    cout << "Las palabras con prefijo son:" << endl;
-                    for (auto& palabra : palabrasConPrefijo) {
-                        cout << palabra << endl;
+                        vector<string> palabrasConPrefijo;
+                        if (trie.wordsWithPrefix(prefijo, palabrasConPrefijo) && !palabrasConPrefijo.empty()) {
+                            cout << "Resultado exitoso: Las palabras que comienzan con '" << prefijo << "' son:" << endl;
+                            for (const auto& palabra : palabrasConPrefijo) {
+                                cout << palabra << endl;
+                            }
+                        } else {
+                            cout << "Fallido: No existen palabras con el prefijo '" << prefijo << "'." << endl;
+                        }
                     }
-
-                    cout << "saliendo del comando palabraprefijo" << endl;
-
-                } else if (comando == "palabrasufijo" || comando == "psu") {
+                    cout << "Saliendo del comando palabraPrefijo" << endl;
+                }  else if (comando == "palabraSufijo" || comando == "psu") {
                     limpiarPantalla();
-                    cout << "este es el comando palabrasufijo" << endl;
-                    cout << "Comando en progreso..." << endl;
-                    cout << "Ingrese el sufijo a buscar: ";
-                    string sufijo;
-                    cin >> sufijo;
+                    cout << "Este es el comando palabraSufijo" << endl;
 
-                    std::reverse(sufijo.begin(), sufijo.end());
-                    std::vector<std::string> palabrasConSufijo = reverseTrie.wordsWithPrefix(sufijo);
+                    if (!reverseTrie.isInitialized()) {
+                        cout << "Error: El árbol del diccionario inverso no está inicializado." << endl;
+                    } else {
+                        cout << "Comando en progreso..." << endl;
+                        cout << "Ingrese el sufijo a buscar: ";
+                        string sufijo;
+                        cin >> sufijo;
+                        std::reverse(sufijo.begin(), sufijo.end());
 
-                    // Mostrar las palabras con el sufijo ingresado
-                    cout << "Las palabras con sufijo son:" << endl;
-                    for (auto& palabraInvertida : palabrasConSufijo) {
-                        std::reverse(palabraInvertida.begin(), palabraInvertida.end());
-                        std::cout << palabraInvertida << std::endl;
+                        vector<string> palabrasConSufijo;
+                        if (reverseTrie.wordsWithPrefix(sufijo, palabrasConSufijo) && !palabrasConSufijo.empty()) {
+                            cout << "Resultado exitoso: Las palabras que terminan con '" << sufijo << "' son:" << endl;
+                            for (auto& palabraInvertida : palabrasConSufijo) {
+                                std::reverse(palabraInvertida.begin(), palabraInvertida.end());
+                                cout << palabraInvertida << endl;
+                            }
+                        } else {
+                            cout << "Fallido: No existen palabras con el sufijo '" << sufijo << "'." << endl;
+                        }
                     }
-                    cout << "saliendo del comando palabrasufijo" << endl;
-
+                    cout << "Saliendo del comando palabraSufijo" << endl;
                 } else if (comando == "posiblePalabra" || comando == "ppa") {
                     limpiarPantalla();
                     cout << "este es el comando posiblepalabra" << endl;

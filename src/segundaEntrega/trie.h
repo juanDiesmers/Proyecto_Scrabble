@@ -3,11 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <cctype>
+#include <algorithm>
 
 class TrieNode {
 public:
     bool isEndOfWord;
-    TrieNode* children[26]; // Asumiendo solo letras de la 'a' a la 'z'
+    TrieNode* children[26];
 
     TrieNode();
     ~TrieNode();
@@ -16,16 +18,20 @@ public:
 class Trie {
 protected:
     TrieNode* root;
+    bool initialized;
+
     void clear(TrieNode* node);
     void collectAllWords(TrieNode* node, const std::string& currentWord, std::vector<std::string>& results) const;
 
 public:
     Trie();
-    virtual ~Trie(); // Destructor virtual para garantizar una eliminación adecuada
+    virtual ~Trie();
+
     virtual void insert(const std::string& word);
     bool search(const std::string& word) const;
-    std::vector<std::string> wordsWithPrefix(const std::string& prefix) const;
+    bool wordsWithPrefix(const std::string& prefix, std::vector<std::string>& results) const;
     void initializeFromDictionaryFile(const std::string& filePath);
+    bool isInitialized() const { return initialized; };
 };
 
 class ReverseTrie : public Trie {
