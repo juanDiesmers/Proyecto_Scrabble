@@ -4,10 +4,11 @@
 #include <algorithm>
 #include "primeraEntrega/asignacion.h"
 #include "segundaEntrega/trie.h"
+#include "terceraEntrega/grafo_palabra.h"
 
 
 /* Comando de compilacion
-    g++ -std=c++11 main.cpp scrable.cxx primeraEntrega/asignacion.cxx segundaEntrega/tree.cxx -o scrable
+    g++ -std=c++11 main.cpp scrable.cxx primeraEntrega/asignacion.cxx segundaEntrega/tree.cxx terceraEntrega/grafo_palabra.cxx -o scrable
 */
 /*
     englishWords-1.txt
@@ -26,6 +27,7 @@ int main()
 
     Trie trie;
     ReverseTrie reverseTrie;
+    GrafoPalabra grafo;
 
     pantallaPrincipal();
 
@@ -151,18 +153,47 @@ int main()
                     cout << "Saliendo del comando palabraSufijo" << endl;
                 } else if (comando == "posiblePalabra" || comando == "ppa") {
                     limpiarPantalla();
-                    cout << "este es el comando posiblepalabra" << endl;
-                    cout << "Comando en progreso..." << endl;
-                    cout << "saliendo del comando posiblepalabra" << endl;
+                    cout << "Este es el comando posiblePalabra" << endl;
+                    if (!diccionarioInicializado) {
+                        cout << "Error: El diccionario no está inicializado." << endl;
+                    } else if (!grafo.grafoConstruido) {
+                        cout << "Error: El grafo no está construido." << endl;
+                    } else {
+                        cout << "Ingrese las letras disponibles: ";
+                        string letrasDisponibles;
+                        cin >> letrasDisponibles;
+                        cin.ignore();
+                        vector<string> posibles = grafo.posiblesPalabras(letrasDisponibles);
+                        if (!posibles.empty()) {
+                            cout << "Las posibles palabras a construir con las letras " << letrasDisponibles << " son:" << endl;
+                            for (const auto& res : posibles) {
+                                int puntaje = calcularPuntajePalabra(res);
+                                if (puntaje != -1) {
+                                    cout << res << " (Longitud: " << res.length() << ", Puntaje: " << puntaje << ")" << endl;
+                                } else {
+                                    cout << res << " (Longitud: " << res.length() << ", Puntaje: Inválido)" << endl;
+                                }
+                            }
+                        } else {
+                            cout << "No se encontraron posibles palabras." << endl;
+                        }
+                    }
+                    cout << "Saliendo del comando posiblePalabra" << endl;
                 }  
             break;
             case 'g':
                 if (comando == "grafoPalabra" || comando == "gp") {
                     limpiarPantalla();
-                    cout << "este es el comando grafoPalabra" << endl;
+                    cout << "Este es el comando grafoPalabra" << endl;
                     cout << "Comando en progreso..." << endl;
-                    cout << "salir del comando grafoPalabra" << endl;
-                } 
+                    if (!diccionarioInicializado) {
+                        cout << "Error: El diccionario no está inicializado." << endl;
+                    } else {
+                        grafo.construirGrafo();
+                        grafo.mostrarGrafo();
+                    }
+                    cout << "Saliendo del comando grafoPalabra" << endl;
+                }  
             break;
             case 'a':
                 if (comando == "ayuda" || comando == "a") {
