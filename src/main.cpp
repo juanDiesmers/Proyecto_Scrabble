@@ -66,6 +66,9 @@ int main()
                     // Llamar a la funcion de inicializar arbol normal
                     trie.initializeFromDictionaryFile(nombreArchivo);
 
+                     // Llama a la función de inicialización del Trie inverso
+                    reverseTrie.initializeFromDictionaryFile(nombreArchivo);
+
                     cout << "saliendo del comando iniciarArbol" << endl;
 
                 } else if (comando == "iniciarArbolInv" || comando == "iai") {
